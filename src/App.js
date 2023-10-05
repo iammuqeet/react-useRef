@@ -2,17 +2,23 @@ import React, {useState, useEffect, useRef} from "react";
 
 function App() {
   const [name, setName] = useState('')
-  const count = useRef(0)
+  const renderCount = useRef(0)
+  const inputRef = useRef();
 
   useEffect(() => {
-    count.current = count.current + 1;
+    renderCount.current = renderCount.current + 1;
   }, [name])
+
+  const handleClick = () => {
+    inputRef.current.focus();
+  }
 
   return (
     <div>
-      <input value={name} name={name} onChange={(e) => setName(e.target.value)}/>
+      <input ref={inputRef} value={name} name={name} onChange={(e) => setName(e.target.value)}/>
       <p>My name is {name}</p>
-      <p>I am rendered {count.current} times</p>
+      <p>I am rendered {renderCount.current} times</p>
+      <button onClick={handleClick}>Click to Focus the Input Field</button>
     </div>
   );
 }
